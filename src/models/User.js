@@ -65,6 +65,9 @@ const UserSchema=new Schema({
 
 },{ timestamps: true })
 
+// TTL index to auto-delete after 10 minutes
+UserSchema.index({ VerifyCodeExpiry: 1 }, { expireAfterSeconds: 0 });
+
 const User =
   mongoose.models.User || mongoose.model("User", UserSchema);
 

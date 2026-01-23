@@ -29,10 +29,12 @@ export default function Signup() {
              const resp= await axios.post("/api/users/signup",user);
              console.log("Sign Up Success",resp.data);
 
-             router.push("/login");
+             router.push(`/verify?email=${encodeURIComponent(user.email)}`);
               notify();
         } catch (error) {
-            toast.error('Problem Occured');
+             const message =error?.response?.data?.error || "Something went wrong";
+            
+                toast.error(message);
             console.log(error);
 
         } finally {
