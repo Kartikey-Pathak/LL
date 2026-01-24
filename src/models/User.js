@@ -8,6 +8,10 @@ const MessageSchema = new Schema(
       ref: "User",
       required: true,
     },
+     title: {
+      type: String, // chat title
+      required: true,
+    },
 
     role: {
       type: String,

@@ -44,6 +44,9 @@ export default function Home() {
     <div className="flex min-h-screen items-center justify-center flex-col bg-zinc-50 font-sans dark:bg-black">
       {<h1 className=" text-white text-4xl font-semibold">Welcome, {name}</h1>}
       <button onClick={Logout} className=" text-white bg-red-500 px-7 py-3 mt-5 border-2 border-gray-950 cursor-pointer hover:opacity-85 transition-all active:opacity-85 rounded-xl"> LogOut</button>
+      <Link href="/chatai" className="text-white mt-10 bg-gray-700 dark:bg-black p-4 rounded-4xl border-2 border-gray-950">
+                  Chat With LLama
+                </Link>
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <Image
           className="dark:invert"

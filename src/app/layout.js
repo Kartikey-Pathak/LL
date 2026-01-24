@@ -49,7 +49,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-         <label className="swap swap-rotate fixed top-4 right-4 z-50">
+         <label className="swap swap-rotate fixed top-15 left-6 z-50">
   <input
     type="checkbox"
     checked={theme === "dark"}
