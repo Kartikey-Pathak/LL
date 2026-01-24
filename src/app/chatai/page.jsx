@@ -41,12 +41,19 @@ export default function Chat() {
     const handleKeyDown = (e) => {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
+            if(!input){
+                toast.error("Fill The Input Field")
+                return;
+            }
             sendMessage();
         }
     };
 
     const sendMessage = async () => {
-        if (!input.trim()) return;
+        if(!input){
+                toast.error("Fill The Input Field")
+                return;
+            }
 
         const text = input;
         setMessages((prev) => [...prev, { role: "user", content: text }]);
@@ -152,14 +159,14 @@ export default function Chat() {
                     }`}
                 >
                     
-                    <Image className=" ml-20" src="/llama.png" width={30} height={30} alt="Llama" />
+                    <Image className=" ml-48" src="/llama.png" width={30} height={30} alt="Llama" />
                        <div onClick={Toastit} className=" size-7 rounded-full bg-white text-xl cursor-pointer hover:opacity-80 transition-all active:opacity-80 text-shadow-black text-black font-extrabold flex items-center justify-center">i</div>
 
                     <div className="flex items-center justify-between mt-10">
                         <h3 className="font-bold text-[#AFAFAF]">Your Chats</h3>
                         <button
                             onClick={startNewChat}
-                            className="text-xl cursor-pointer hover:bg-gray-400 transition-all rounded-full px-2 py-1 font-bold dark:text-white"
+                            className="text-2xl cursor-pointer hover:bg-[#303030]  active:bg-[#303030] transition-all rounded-full size-10 text-center flex items-center justify-center font-bold dark:text-white"
                         >
                             +
                         </button>
@@ -169,7 +176,7 @@ export default function Chat() {
                         {chats.map((chat, i) => (
                             <div
                                 key={i}
-                                className={`flex items-center justify-between p-2 rounded cursor-pointer ${
+                                className={`flex items-center justify-between transition-all p-2 px-3 rounded-xl cursor-pointer ${
                                     chat.title === currentTitle
                                         ? "bg-gray-200 dark:bg-[#303030]"
                                         : "hover:bg-gray-100 dark:hover:bg-[#252525]"
@@ -187,7 +194,7 @@ export default function Chat() {
                                         e.stopPropagation();
                                         deleteChat(chat.title);
                                     }}
-                                    className="text-red-500 hover:text-red-700 px-2"
+                                    className="text-red-500 cursor-pointer transition-all hover:text-red-700 px-2"
                                 >
                                     ✕
                                 </button>
@@ -198,13 +205,13 @@ export default function Chat() {
 
                 {/*CHAT AREA*/}
                 <div className="flex-1 items-center w-full justify-center flex flex-col ">
-                    <div className="flex-1 border-2 w-full rounded-4xl border-[#CBCBCB] dark:border-[#303030] overflow-y-scroll p-4 mt-1 ml-1 mr-1">
+                    <div className="flex-1  w-full rounded-4xl   overflow-y-scroll p-4 mt-1 ml-1 mr-1">
                         {messages.map((msg, i) => (
                             <div
                                 key={`${msg.role}-${i}`}
-                                className={`chat ${msg.role === "user" ? "chat-end" : "chat-start"}`}
+                                className={`chat ${msg.role === "user" ? "chat-end " : "chat-start"}`}
                             >
-                                <div className="chat-bubble">{msg.content}</div>
+                                <div className={`chat ${msg.role === "user" ? " bg-gray-50 text-black dark:text-white dark:bg-[#303030] " : "dark:bg-black bg-gray-400 text-black dark:text-[#E5E7EB]"} chat-bubble rounded-sm py-3 px-2 flex items-center justify-start`}>{msg.content}</div>
                             </div>
                         ))}
 
@@ -218,19 +225,19 @@ export default function Chat() {
                         <div ref={bottomRef} />
                     </div>
 
-                    <div className="p-3 border-t flex gap-2">
+                    <div className="p-3 border-t items-center justify-center flex gap-2">
                         <Input
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={handleKeyDown}
-                            placeholder="Type a message..."
-                            className="flex-1 px-10 md:w-[40rem] py-2 rounded-lg border"
+                            placeholder="Ask anything..."
+                            className="flex-1 px-5 md:w-[40rem] h-12 py-2 rounded-4xl border"
                         />
                         <button
                             onClick={sendMessage}
-                            className="px-4 md:px-9 py-2 bg-blue-600 text-white rounded-lg"
+                            className=" size-10 cursor-pointer hover:bg-black/70 active:bg-black/70 dark:hover:bg-white/70 dark:active:bg-white/70 transition-all text-sm dark:bg-white bg-black  rounded-full"
                         >
-                            Send
+                           <i class="fa-solid font-semibold text-white dark:text-black text-sm fa-arrow-up"></i>
                         </button>
                     </div>
                 </div>
