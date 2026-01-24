@@ -12,13 +12,13 @@ export default function Chat() {
     const [currentTitle, setCurrentTitle] = useState(null);
     const [chats, setChats] = useState([]);
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [loading, setLoading] = useState(false); // 🔹 loader state
+    const [loading, setLoading] = useState(false); //loader state
 
     const bottomRef = useRef(null);
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages, loading]); // scroll even when loader shows
+    }, [messages, loading]); // scroll
 
     useEffect(() => {
         const loadChats = async () => {
@@ -51,7 +51,7 @@ export default function Chat() {
         const text = input;
         setMessages((prev) => [...prev, { role: "user", content: text }]);
         setInput("");
-        setLoading(true); // 🔹 show loader
+        setLoading(true); // loader
 
         try {
             const res = await axios.post(
@@ -94,7 +94,7 @@ export default function Chat() {
         } catch (err) {
             console.error(err);
         } finally {
-            setLoading(false); // 🔹 hide loader
+            setLoading(false); //hide loader
         }
     };
 
@@ -133,7 +133,6 @@ export default function Chat() {
             <nav className="h-12 border-b-2 border-[#CBCBCB] flex-row flex items-center p-5 dark:border-[#303030] justify-between">
                 <h2 className="dark:text-white text-black text-2xl font-medium">LLama</h2>
 
-                {/* Hamburger for mobile */}
                 <button
                     className="lg:hidden text-2xl font-bold dark:text-white"
                     onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -146,7 +145,7 @@ export default function Chat() {
 
             <section    onClick={() => setSidebarOpen(false)} className="flex dark:bg-[#212121] h-[40.3rem] w-full bg-white relative">
                 <Toaster/>
-                {/* SIDEBAR */}
+                {/*SIDEBAR*/}
                 <div
                     className={`fixed top-0 left-0 h-full w-64 p-5 bg-white dark:bg-[#181818] border-r-2 border-[#CBCBCB] dark:border-[#303030] lg:relative lg:translate-x-0 transition-transform ${
                         sidebarOpen ? "translate-x-0 z-50" : "-translate-x-full"
@@ -197,7 +196,7 @@ export default function Chat() {
                     </div>
                 </div>
 
-                {/* CHAT AREA */}
+                {/*CHAT AREA*/}
                 <div className="flex-1 items-center w-full justify-center flex flex-col ">
                     <div className="flex-1 border-2 w-full rounded-4xl border-[#CBCBCB] dark:border-[#303030] overflow-y-scroll p-4 mt-1 ml-1 mr-1">
                         {messages.map((msg, i) => (
@@ -209,7 +208,7 @@ export default function Chat() {
                             </div>
                         ))}
 
-                        {/* 🔹 Loader */}
+                        {/*Loader */}
                         {loading && (
                             <div className="flex justify-start p-2">
                                 <span className="loading loading-dots loading-lg text-blue-400"></span>
