@@ -51,7 +51,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen relative overflow-y-scroll  flex-col bg-zinc-50 font-sans dark:bg-black">
       <div className=" w-full flex justify-between">
-        <h1 className=" text-4xl m-5 ml-10 font-bold text-black dark:text-white">LLama</h1>
+         <Link href="/" className=" text-4xl m-5 ml-10 font-bold text-black dark:text-white">LLama   </Link>
         <button onClick={Logout} className=" text-white bg-[#1F1F1F] w-24 h-12 p-3 text-sm font-semibold mt-5 border-2 border-gray-950 cursor-pointer mr-5 hover:bg-[#1F1F1F]/80 transition-all active:opacity-85 rounded-4xl">LogOut</button>
       </div>
 
@@ -66,6 +66,7 @@ export default function Home() {
         <p className="text-[#929292]">{formattedDate}</p>
         {<h1 className=" dark:text-white text-black text-xl md:text-2xl mt-1 font-semibold">Welcome, <span className=" text-[#929292]">{name}</span></h1>}
         <h1 className=" mt-10 dark:text-white text-black text-4xl md:text-6xl font-semibold">Introducing LLama</h1>
+         <Link href="/chatai" className=" mt-10 bg-black dark:bg-white h-12 cursor-pointer hover:opacity-70 transition-all active:opacity-70 w-40 flex items-center justify-center rounded-4xl text-white dark:text-black gap-3">Get Started <i className=" dark:text-black text-white rotate-50 font-semibold fa-solid fa-arrow-up"></i></Link>
         <div className=" mt-20 border-2 border-[#1F1F1F] w-[90%]  md:w-[50%]"></div>
 
         <div className=" mt-20 w-[90%]  md:w-[50%] flex-col flex items-center justify-center">

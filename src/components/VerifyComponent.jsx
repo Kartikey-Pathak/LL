@@ -53,7 +53,7 @@ export default function Verify() {
       />
       <button
         onClick={handleVerify}
-        className="text-white bg-gray-700 px-7 py-3 mt-2 border-2 border-gray-950 cursor-pointer hover:opacity-85 transition-all active:opacity-85 rounded-xl w-full max-w-xs"
+        className="text-white  bg-gray-700 px-7 py-3 mt-2 border-2 border-gray-950 cursor-pointer hover:opacity-85 transition-all active:opacity-85 rounded-xl w-full max-w-xs"
         disabled={loading}
       >
         {loading ? "Verifying..." : "Submit"}

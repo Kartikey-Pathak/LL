@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { Input } from "../../components/ui/input";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import Link from "next/link";
 
 export default function Chat() {
     const [side, setside] = useState();
@@ -172,7 +173,7 @@ export default function Chat() {
     return (
         <>
             <nav className="h-12 border-b-2 border-[#CBCBCB] flex-row flex justify-between items-center p-5 dark:border-[#303030]">
-                <h2 className="dark:text-white text-black text-2xl font-medium">LLama</h2>
+                 <Link href="/" className="dark:text-white text-black text-2xl font-medium">LLama  </Link>
                 {side ?
                     <div>
                         <div className="drawer">
