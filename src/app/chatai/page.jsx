@@ -15,7 +15,7 @@ export default function Chat() {
     const [chatList, setChatList] = useState([]);
     const [activeChatIndex, setActiveChatIndex] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [loadingchat,setLoadingchat]=useState(true);
+    const [loadingchat, setLoadingchat] = useState(true);
 
     const chatRef = useRef(null);
 
@@ -32,7 +32,7 @@ export default function Chat() {
             try {
                 toast.success("Loading Chats");
                 setLoadingchat(true);
-                
+
                 const res = await axios.get("/api/chatai", { withCredentials: true });
                 const chatsArray = [];
 
@@ -178,8 +178,8 @@ export default function Chat() {
     return (
         <>
             <nav className="h-12 border-b-2 border-[#CBCBCB] flex-row flex justify-between items-center p-5 dark:border-[#303030]">
-                 <Link href="/" className="dark:text-white text-black text-2xl font-medium">LLama  </Link>
-                 
+                <Link href="/" className="dark:text-white text-black text-2xl font-medium">LLama  </Link>
+
                 {side ?
                     <div>
                         <div className="drawer">
@@ -197,7 +197,7 @@ export default function Chat() {
                                         <button
                                             onClick={() => {
                                                 setActiveChatIndex(null);
-                                                 toast.success("New Chat Created..");
+                                                toast.success("New Chat Created..");
                                             }
                                             }
                                             className="text-2xl size-9 flex items-center justify-center bg-[#242424] hover:dark:bg-[#242424]/50 active:bg-[#242424]/50 hover:bg-[#242424]/50 rounded-full cursor-pointer text-white hover:text-gray-300"
@@ -225,8 +225,8 @@ export default function Chat() {
             <section className=" flex-row  flex dark:bg-[#212121]  xl:h-[93vh] h-[92vh] w-full bg-white ">
                 <Toaster />
                 {
-                    loadingchat?
-                <span className=" fixed z-50 left-0 right-0 mx-auto bottom-0 top-0 my-auto loading loading-spinner loading-xl text-white"></span>:null
+                    loadingchat ?
+                        <span className=" fixed z-50 left-0 right-0 mx-auto bottom-0 top-0 my-auto loading loading-spinner loading-xl text-white"></span> : null
                 }
                 {/* side Area */}
                 {!side ?
@@ -291,6 +291,10 @@ export default function Chat() {
                             placeholder="Ask Anything"
                             onChange={(e) => setinput(e.target.value)}
                             value={input}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    send();
+                                }}}
 
                             className=" p-5 cursor-pointer rounded-4xl h-13 md:h-14 w-[17rem] md:w-[35rem]  lg:w-[55rem]"
                         />
