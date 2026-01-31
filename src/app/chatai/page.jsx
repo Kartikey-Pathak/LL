@@ -219,7 +219,7 @@ export default function Chat() {
                 <Toaster />
                 {/* side Area */}
                 {!side ?
-                    <div className=" h-full w-80 bg-[#181818] overflow-hidden">
+                    <div className=" h-full w-80 bg-[#F9FAFB] dark:bg-[#181818] overflow-hidden">
                         <div className="  h-12 mt-20 justify-between px-5 flex items-center flex-row gap-5">
                             <h2 className=" m-1 font-semibold text-[#AFAFAF] ">Your Chats</h2>
                             <button
@@ -236,7 +236,7 @@ export default function Chat() {
 
                             {chatList.map((chat, index) => (
                                 <div onClick={() => setActiveChatIndex(index)} key={index} className={` bg-[#242424] ${activeChatIndex === index ? "bg-[#242424]" : "bg-[#242424]/20"} justify-between flex-row h-10 w-56 flex items-center px-6 rounded-4xl`}>
-                                    <h2>{chat.title}</h2>
+                                    <h2 className=" dark:text-white text-white">{chat.title}</h2>
                                     <i onClick={() => { deletechat(index) }} className=" text-red-500 font-semibold cursor-pointer hover:dark:text-red-300 hover:text-red-300 transition-all active:text-red-300 active:dark:text-red-300 fa-solid fa-trash"></i>
                                 </div>
                             ))}
