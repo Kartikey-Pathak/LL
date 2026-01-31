@@ -215,7 +215,7 @@ export default function Chat() {
 
             </nav>
 
-            <section className=" flex-row  flex dark:bg-[#212121]  xl:h-[93vh] h-screen w-full bg-white ">
+            <section className=" flex-row  flex dark:bg-[#212121]  xl:h-[93vh] h-[92vh] w-full bg-white ">
                 <Toaster />
                 {/* side Area */}
                 {!side ?
