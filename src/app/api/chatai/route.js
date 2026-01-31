@@ -110,7 +110,7 @@ Follow this exact style for ALL responses.
       const content = chunk.choices[0]?.delta?.content;
       if (content) {
         response += content;
-        process.stdout.write(content);
+        // process.stdout.write(content);
       }
 
       // Usage information comes in the final chunk
