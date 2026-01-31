@@ -15,6 +15,7 @@ export default function Chat() {
     const [chatList, setChatList] = useState([]);
     const [activeChatIndex, setActiveChatIndex] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [loadingchat,setLoadingchat]=useState(true);
 
     const chatRef = useRef(null);
 
@@ -29,6 +30,9 @@ export default function Chat() {
     useEffect(() => {
         const loadChats = async () => {
             try {
+                toast.success("Loading Chats");
+                setLoadingchat(true);
+                
                 const res = await axios.get("/api/chatai", { withCredentials: true });
                 const chatsArray = [];
 
@@ -52,6 +56,7 @@ export default function Chat() {
                 console.log(err);
             } finally {
                 toast("Warning Your Chats Are Being Saved..");
+                setLoadingchat(false);
             }
         };
 
@@ -174,6 +179,7 @@ export default function Chat() {
         <>
             <nav className="h-12 border-b-2 border-[#CBCBCB] flex-row flex justify-between items-center p-5 dark:border-[#303030]">
                  <Link href="/" className="dark:text-white text-black text-2xl font-medium">LLama  </Link>
+                 
                 {side ?
                     <div>
                         <div className="drawer">
@@ -218,6 +224,10 @@ export default function Chat() {
 
             <section className=" flex-row  flex dark:bg-[#212121]  xl:h-[93vh] h-[92vh] w-full bg-white ">
                 <Toaster />
+                {
+                    loadingchat?
+                <span className=" fixed z-50 left-0 right-0 mx-auto bottom-0 top-0 my-auto loading loading-spinner loading-xl text-white"></span>:null
+                }
                 {/* side Area */}
                 {!side ?
                     <div className=" h-full w-80 bg-[#F9FAFB] dark:bg-[#181818] overflow-hidden">
