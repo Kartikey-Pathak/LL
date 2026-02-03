@@ -7,9 +7,19 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import { TextChange } from "@/components/TextChange";
+import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 
 
 export default function Chat() {
+    const placeholders = [
+        "Ask anything — I'll think it through",
+        "Start typing to chat",
+        "Ask a follow-up or continue the conversation",
+        "Paste your code or question here",
+        "What can I help you with?",
+        "Share the message — I'll take a look",
+        "What's on your mind?",
+    ];
     const [side, setside] = useState();
     const [input, setinput] = useState("");
 
@@ -176,6 +186,17 @@ export default function Chat() {
         }
     }
 
+    const handleChange = (e) => {
+        setinput(e.target.value);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        send();
+    };
+
+
+
 
     return (
         <>
@@ -284,10 +305,10 @@ export default function Chat() {
                             </div>
                         )}
 
-                        {activeChatIndex===null&&
-                        <div className=" w-full h-full flex items-center justify-center"> 
-                         <TextChange/>
-                        </div>
+                        {activeChatIndex === null &&
+                            <div className=" w-full h-full flex items-center justify-center">
+                                <TextChange />
+                            </div>
                         }
 
 
@@ -296,20 +317,11 @@ export default function Chat() {
                     </div>
 
                     <div className=" fixed xl:static mb-2 md:mb-1 gap-2  bottom-0  w-full flex items-center justify-center">
-                        <Input
-
-                            type="text"
-                            placeholder="Ask Anything"
-                            onChange={(e) => setinput(e.target.value)}
-                            value={input}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") {
-                                    send();
-                                }}}
-
-                            className=" p-5 cursor-pointer rounded-4xl h-13 md:h-14 w-[17rem] md:w-[35rem]  lg:w-[55rem]"
+                        <PlaceholdersAndVanishInput
+                            placeholders={placeholders}
+                            onChange={handleChange}
+                            onSubmit={handleSubmit}
                         />
-                        <button onClick={send} className=" cursor-pointer hover:bg-gray-300 hover:dark:bg-gray-300 transition-all active:dark:bg-gray-400 active:bg-gray-400 size-11 md:size-12 dark:bg-white bg-black rounded-full flex items-center justify-center"><i className=" text-white dark:text-black fa-solid fa-arrow-up"></i></button>
                     </div>
                 </div>
 
