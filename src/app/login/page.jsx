@@ -37,6 +37,7 @@ export default function LoginFormDemo() {
   };
 
   return (
+    <section className=" w-full dark:bg-black  h-fit flex items-center justify-center">
     <div className="shadow-input mx-auto w-full h-screen max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black flex flex-col justify-center">
       <Toaster />
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
@@ -80,12 +81,13 @@ export default function LoginFormDemo() {
 
         <h3 className="mt-5 text-sm text-neutral-600 dark:text-neutral-300">
           Don't have an account?{" "}
-          <Link href="/signup" className="text-blue-700">
+          <Link href="/signup" className=" cursor-pointer hover:text-blue-400 active:text-blue-400  transition-all text-blue-700">
             Sign Up
           </Link>
         </h3>
       </div>
     </div>
+    </section>
   );
 }
 

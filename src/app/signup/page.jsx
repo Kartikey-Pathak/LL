@@ -46,6 +46,7 @@ export default function SignupFormDemo() {
   },[])
 
   return (
+    <section className=" w-full dark:bg-black  h-full flex items-center justify-center">
     <div className="shadow-input mx-auto w-full h-screen max-w-md rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
       <Toaster />
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
@@ -94,9 +95,10 @@ export default function SignupFormDemo() {
           {loading ? "Creating..." : "Sign up →"}
           <BottomGradient />
         </button>
-        <h3 className=" mt-5 text-sm text-neutral-600 dark:text-neutral-300">Already have account? <Link href="/login" className=" text-blue-700">Login</Link></h3>
+        <h3 className=" mt-5 text-sm text-neutral-600 dark:text-neutral-300">Already have account? <Link href="/login" className="cursor-pointer hover:text-blue-400 active:text-blue-400  transition-all text-blue-700">Login</Link></h3>
       </form>
     </div>
+    </section>
   );
 }
 
