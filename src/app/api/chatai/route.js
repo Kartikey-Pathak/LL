@@ -15,7 +15,7 @@ export async function POST(req) {
     let { chats, chatId, title } = body;
     // console.log(chats);
 
-    const userId = await gettokeninfo(req);
+    const userId = await gettokeninfo();
     const user = await User.findById(userId);
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

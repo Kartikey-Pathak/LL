@@ -31,7 +31,8 @@ export default function Verify() {
         window.location.href = "/login";
       }, 1500);
     } catch (error) {
-      const msg = error.response?.data?.message || "Verification failed";
+      console.log(error);
+      const msg =  error.response?.data?.error || error.response?.data?.message || "Verification failed";
       toast.error(msg);
     } finally {
       setLoading(false);
