@@ -23,8 +23,8 @@ export default function SetPassword() {
         password: "",
         confpassword: "",
     });
-    
-      const router = useRouter();
+
+    const router = useRouter();
     const searchParams = useSearchParams();
     const email = searchParams.get("email");
 
@@ -40,9 +40,9 @@ export default function SetPassword() {
                 return;
 
             }
-            const pass=passwords.confpassword;
+            const pass = passwords.confpassword;
 
-            const resp = await axios.post("/api/users/set-password", {email,pass});
+            const resp = await axios.post("/api/users/set-password", { email, pass });
             console.log("set password Success", resp.data);
             toast.success("Password Saved You Can Log In.");
 
@@ -63,8 +63,7 @@ export default function SetPassword() {
                         Set Password
                     </h2>
                     <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
-                        Login to aceternity if you can because we don&apos;t have a login flow
-                        yet
+                        Set a password to enable email login for your account in the future.
                     </p>
 
                     <form className="my-8" onSubmit={handlesubmit} >
