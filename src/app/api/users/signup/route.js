@@ -15,10 +15,8 @@ export async function POST(req) {
 
         console.log(body);
         const user = await User.findOne({ email });
-        const nameexists=await User.findOne({username});
-        if(nameexists){
-            return NextResponse.json({ error: "UserName Exists, Try Different Name.." }, { status: 401 })
-        }
+
+       
         
 
         if (user && user.isVerified) {
