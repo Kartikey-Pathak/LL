@@ -5,6 +5,7 @@ import { connect } from "@/dbconfig/dbconfig";
 import { User } from "@/models/User";
 
 export const authOptions = {
+    trustHost: true,
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
