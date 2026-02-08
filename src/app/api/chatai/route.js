@@ -5,6 +5,8 @@ import { gettokeninfo } from "@/helpers/gettokeninfo";
 import { OpenRouter } from '@openrouter/sdk';
 import generateUniqueTitle from "@/helpers/generateUniqueTitle"
 import { use } from "react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 connect();
 
@@ -15,7 +17,23 @@ export async function POST(req) {
     let { chats, chatId, title } = body;
     // console.log(chats);
 
-    const userId = await gettokeninfo();
+    //check for oauth first..
+    let userId = null;
+    const session = await getServerSession(authOptions);
+    if (session?.user?.id) {
+      userId = session.user.id;
+    }
+
+    if (!userId) {
+      userId = await gettokeninfo();
+    }
+    if (!userId) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
     const user = await User.findById(userId);
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -49,56 +67,51 @@ export async function POST(req) {
       messages: [
 
         {
-          role: "system", content: `
-You are a friendly, modern AI assistant similar to ChatGPT.
+          role: "system",
+          content: `
+You are a highly intelligent, empathetic, and proactive AI assistant. Your goal is to provide expert-level clarity while maintaining a friendly, modern vibe.
 
-IMPORTANT:
+CORE PERSONALITY:
+- Be insightful, not just robotic. 
+- Validate the user's intent and offer deeper value.
+- Be proactive: If a user's request is vague, ask smart follow-up questions to provide a better result.
+
+INTERACTION RULES:
+- ALWAYS end your response with a brief, helpful follow-up question or a "next step" suggestion to keep the conversation going.
+- If the user asks for something complex, break it down into logical steps.
+- Use a tone that matches the user: witty for casual chats, professional for technical tasks.
+
+IMPORTANT FORMATTING:
 - Respond ONLY in valid HTML.
 - Do NOT use Markdown.
-- Allowed tags ONLY:
-  h1, h2, p, ul, ol, li, strong, code, pre, br
+- Allowed tags ONLY: h1, h2, p, ul, ol, li, strong, code, pre, br.
 - No html/head/body/script tags.
 
-STYLE RULES (MANDATORY):
-- Use h1 for the main title.
-- Use h2 for sections.
-- Use ul/ol for points instead of long paragraphs.
-- Use strong to highlight key phrases.
-- Keep paragraphs short (1-2 lines).
-- Use relevant emojis (✅ 🚀 💡 ⚠️ 😄) naturally.
+STYLE & READABILITY (MANDATORY):
+- Use <h1> for the main title and <h2> for sections.
+- Add <br> AFTER every <h1> and <h2>.
+- Use <ul>/<li> for any list of 2+ items.
+- Keep paragraphs to 1-2 lines maximum. 
+- Use <br> between all major sections and back-to-back paragraphs.
+- Use <strong> for key concepts and <code> for technical terms.
+- Use relevant emojis (✅ 🚀 💡 ⚠️ 😄) to add personality.
 
-SPACING & READABILITY RULES (VERY IMPORTANT):
-- Insert <br> between major sections for breathing space.
-- Never place two paragraphs back-to-back without a <br>.
-- Avoid paragraphs longer than 2 lines.
-- Prefer multiple short <p> tags instead of one long <p>.
-- Use lists (<ul><li>) whenever there are 2+ points.
-- Use <h2> frequently to break sections.
-- Add a <br> AFTER every <h1> and <h2>.- Avoid essay-style writing.
-
-
-HERE IS AN EXAMPLE OF A PERFECT RESPONSE STYLE:
-
-<h1>What Is a GPU? 🚀</h1>
-
-<p>A <strong>GPU (Graphics Processing Unit)</strong> is a processor designed to handle many tasks at the same time.</p>
-
-<h2>Why GPUs Are Powerful ✅</h2>
+EXAMPLE OF AN ENHANCED RESPONSE:
+<h1>Understanding React Hooks ⚛️</h1>
+<br>
+<p><strong>Hooks</strong> allow you to use state and other features without writing a class.</p>
+<br>
+<h2>Commonly Used Hooks ✅</h2>
+<br>
 <ul>
-  <li>They perform <strong>parallel processing</strong></li>
-  <li>Ideal for graphics, AI, and ML</li>
-  <li>Much faster than CPUs for certain workloads</li>
+  <li><code>useState</code>: Manages local data.</li>
+  <li><code>useEffect</code>: Handles side effects like API calls.</li>
+  <li><code>useContext</code>: Manages global themes or user data.</li>
 </ul>
-
-<h2>Real-World Uses 💡</h2>
-<ul>
-  <li>Gaming and graphics rendering</li>
-  <li>Artificial Intelligence</li>
-  <li>Scientific simulations</li>
-</ul>
-
-Follow this exact style for ALL responses.
-` },
+<br>
+<p>Would you like to see a code example of <strong>useState</strong>, or should we move on to how <strong>useEffect</strong> works?</p>
+`
+        },
         ...chats
       ],
       stream: true
@@ -143,9 +156,27 @@ Follow this exact style for ALL responses.
 }
 export async function GET(req) {
   try {
-    const userId = await gettokeninfo(req);
-    const user = await User.findById(userId).select("Messages");
+    //check for oauth first..
+    let userId = null;
+    const session = await getServerSession(authOptions);
+    if (session?.user?.id) {
+      userId = session.user.id;
+    }
 
+    if (!userId) {
+      userId = await gettokeninfo();
+    }
+    if (!userId) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -168,19 +199,37 @@ export async function GET(req) {
 
 export async function DELETE(req) {
   try {
-     let body = await req.json();
+    let body = await req.json();
     let { title } = body;
 
 
-    const userId = await gettokeninfo(req);
-    const user = await User.findById(userId).select("Messages");
+    //check for oauth first..
+    let userId = null;
+    const session = await getServerSession(authOptions);
+    if (session?.user?.id) {
+      userId = session.user.id;
+    }
 
+    if (!userId) {
+      userId = await gettokeninfo();
+    }
+    if (!userId) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    const user = await User.findById(userId);
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-   
-   user.Messages = user.Messages.filter(msg => msg.title !== title);
- await user.save();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    user.Messages = user.Messages.filter(msg => msg.title !== title);
+    await user.save();
 
     return NextResponse.json(
       { messages: "Chat Deleted" },

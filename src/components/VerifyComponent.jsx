@@ -32,7 +32,7 @@ export default function Verify() {
       }, 1500);
     } catch (error) {
       console.log(error);
-      const msg =  error.response?.data?.error || error.response?.data?.message || "Verification failed";
+      const msg = error.response?.data?.error || error.response?.data?.message || "Verification failed";
       toast.error(msg);
     } finally {
       setLoading(false);

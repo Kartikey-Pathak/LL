@@ -38,6 +38,7 @@ export async function POST(req) {
             username,
             email,
             password: hash,
+            oauth: false,
             isVerified: false,
             VerifyCode: hashotp,
             VerifyCodeExpiry: new Date(Date.now() + 10 * 60 * 1000), // 10 min

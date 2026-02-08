@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/stateful-button";
+import { signOut } from "next-auth/react";
+
 
 export default function Home() {
   const [name, setname] = useState("");
@@ -37,6 +39,8 @@ export default function Home() {
   const Logout = async () => {
     try {
       await axios.get("api/users/logout");
+      // Logout NextAuth session
+      await signOut({ callbackUrl: "/login" });
       toast.success("Logged Out!!");
       router.push("/login");
 

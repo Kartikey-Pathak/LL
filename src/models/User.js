@@ -1,4 +1,4 @@
-import mongoose,{Schema} from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 
 const MessageSchema = new Schema(
@@ -8,11 +8,11 @@ const MessageSchema = new Schema(
       ref: "User",
       required: true,
     },
-     chatId: {   // Unique chat session ID
+    chatId: {   // Unique chat session ID
       type: String,
       required: false,
     },
-     title: {
+    title: {
       type: String, // chat title
       required: true,
     },
@@ -32,46 +32,53 @@ const MessageSchema = new Schema(
   { timestamps: true }
 );
 
-const UserSchema=new Schema({
-    username:{
-        type:String,
-        required:[true,"UserName is required"],
-        unique:true,
-        trim:true
+const UserSchema = new Schema({
+  username: {
+    type: String,
+    required: [true, "UserName is required"],
+    unique: true,
+    trim: true
+  },
+  email: {
+    type: String,
+    required: [true, "Email is required"],
+    unique: true,
+    trim: true
+  },
+  password: {
+    type: String,
+    required: function () {
+      return !this.oauth; // required only if NOT OAuth user
     },
-    email:{
-        type:String,
-        required:[true,"Email is required"],
-        unique:true,
-        trim:true
-    },
-    password:{
-        type:String,
-        required:[true,"password is required"],
-        trim:true
-    },
-    VerifyCode:{
-        type:String,
-    
-    },
-    VerifyCodeExpiry:{
-         type:Date,
-          
-    },
-    isVerified:{
-        type:Boolean,
-        default:false
-    },
-    VerifyToken:{
-      type:String,
-    },
-    VerifyTokenExpiry:{
-      type:Date,
-    },
-    Messages:[MessageSchema]
-    
+    trim: true
+  },
+  oauth: {
+    type: Boolean,
+    default: false
+  }
+  ,
+  VerifyCode: {
+    type: String,
 
-},{ timestamps: true })
+  },
+  VerifyCodeExpiry: {
+    type: Date,
+
+  },
+  isVerified: {
+    type: Boolean,
+    default: false
+  },
+  VerifyToken: {
+    type: String,
+  },
+  VerifyTokenExpiry: {
+    type: Date,
+  },
+  Messages: [MessageSchema]
+
+
+}, { timestamps: true })
 
 // TTL index to auto-delete after 10 minutes
 UserSchema.index({ VerifyCodeExpiry: 1 }, { expireAfterSeconds: 0 });
@@ -82,4 +89,4 @@ const User =
 const Message =
   mongoose.models.Message || mongoose.model("Message", MessageSchema);
 
-export {User,Message};
+export { User, Message };

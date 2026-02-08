@@ -15,6 +15,14 @@ export async function POST(req) {
         if (!user) {
             return NextResponse.json({ error: "User Does Not Exist" }, { status: 400 });
         }
+
+        //if user exists but have signed up using auth then..
+        if (user.oauth&&!user.password) {
+            return NextResponse.json({ message: "Continue With Google" }, { status: 402 });
+        }
+
+
+
         if (user && !user.isVerified) {
             return NextResponse.json({ error: "User Not Verified,Re-Create Account" }, { status: 300 });
 
@@ -43,7 +51,7 @@ export async function POST(req) {
         return resp;
 
     } catch (error) {
-        return NextResponse.json({ error: "problem" }, { status: 500 });
+        return NextResponse.json({ error: "Problem occured in login" }, { status: 500 });
     }
 
 }
