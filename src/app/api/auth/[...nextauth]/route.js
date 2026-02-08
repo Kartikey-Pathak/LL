@@ -10,6 +10,11 @@ export const authOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            authorization: {
+                params: {
+                    prompt: "select_account",
+                },
+            },
         }),
 
         GitHubProvider({
@@ -32,7 +37,7 @@ export const authOptions = {
                 existingUser = await User.create({
                     email: user.email,
                     username: user.name,
-                    isVerified:true,
+                    isVerified: true,
                     oauth: true, // optional flag
                 });
             }
