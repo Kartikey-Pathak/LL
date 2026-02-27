@@ -17,8 +17,6 @@ export async function POST(req) {
         const user = await User.findOne({ email });
 
        
-        
-
         if (user && user.isVerified) {
             return NextResponse.json({ error: "User Exists, You Can LogIn.." }, { status: 401 })
         }
