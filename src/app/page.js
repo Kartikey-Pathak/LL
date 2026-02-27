@@ -60,6 +60,9 @@ export default function Home() {
       if (resp.status === 201) {
         toast.success("Logged Out!!");
         setsure(false);
+        // 🔥 Clear NextAuth session
+        await signOut({ redirect: false });  //clears next-auth.session-token
+        window.location.href = "/login";
         router.push("/login");
         return;
       }
