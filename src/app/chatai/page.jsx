@@ -200,7 +200,7 @@ export default function Chat() {
 
     return (
         <>
-            <nav className="h-12 border-b-2 border-[#CBCBCB] flex-row flex justify-between items-center p-5 dark:border-[#303030]">
+            <nav className="h-12 sticky bg-black top-0 z-50 border-b-2 border-[#CBCBCB] flex-row flex justify-between items-center p-5 dark:border-[#303030]">
                 <Link href="/" className="dark:text-white text-black text-2xl font-medium">LLama  </Link>
 
                 {side ?
