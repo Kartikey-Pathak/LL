@@ -101,7 +101,16 @@ export default function Home() {
         </Link>
         <div className=" w-full flex items-center  flex-col justify-center mt-5">
           <p className="text-[#929292]">{formattedDate}</p>
-          {<h1 className=" dark:text-white text-black text-xl md:text-2xl mt-1 font-semibold">Welcome, <span className=" text-[#929292]">{name}</span></h1>}
+          {<h1 className=" dark:text-white text-black text-xl flex flex-row gap-2 items-center justify-center md:text-2xl mt-1 font-semibold">Welcome,
+            {name?
+            <span className=" text-[#929292]">{name}</span>
+            :
+            <div className="flex gap-2">
+              <div className="skeleton h-10 w-40 rounded-4xl"></div>
+            </div>
+}
+          </h1>
+          }
           <h1 className=" mt-10 dark:text-white text-black text-4xl md:text-6xl font-semibold">Introducing LLama</h1>
           <Link href="/chatai" className=" mt-10 bg-black dark:bg-white h-12 cursor-pointer hover:opacity-70 transition-all active:opacity-70 w-40 flex items-center justify-center rounded-4xl text-white dark:text-black gap-3">Get Started <i className=" dark:text-black text-white rotate-50 font-semibold fa-solid fa-arrow-up"></i></Link>
 
