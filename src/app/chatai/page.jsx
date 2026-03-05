@@ -200,8 +200,8 @@ export default function Chat() {
 
     return (
         <>
-            <nav className="h-12 sticky bg-black top-0 z-50 border-b-2 border-[#CBCBCB] flex-row flex justify-between items-center p-5 dark:border-[#303030]">
-                <Link href="/" className="dark:text-white text-black text-2xl font-medium">LLama  </Link>
+            <nav className=" h-12 bg-black  border-b-2 border-[#CBCBCB] flex-row flex justify-between items-center p-5 dark:border-[#303030]">
+                <Link href="/" className="dark:text-white text-white text-2xl font-medium">LLama  </Link>
 
                 {side ?
                     <div>
@@ -244,7 +244,7 @@ export default function Chat() {
                 }
 
             </nav>
-
+            
             <section className=" flex-row  flex dark:bg-[#212121]  xl:h-[93vh] h-[92vh] w-full bg-white ">
                 <Toaster />
                 {
