@@ -106,7 +106,7 @@ export default function Home() {
             <span className=" text-[#929292]">{name}</span>
             :
             <div className="flex gap-2">
-              <div className="skeleton h-10 w-40 rounded-4xl"></div>
+              <div className="skeleton h-10 w-40 bg-[#929292] rounded-4xl"></div>
             </div>
 }
           </h1>

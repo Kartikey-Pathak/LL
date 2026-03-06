@@ -200,7 +200,8 @@ export default function Chat() {
 
     return (
         <>
-            <nav className=" h-12 bg-black  border-b-2 border-[#CBCBCB] flex-row flex justify-between items-center p-5 dark:border-[#303030]">
+        <section className=" min-h-screen relative h-full pt-12 overflow-hidden w-full flex items-center ">
+            <nav className=" h-12 bg-black w-screen  fixed top-0 z-50 border-b-2 border-[#CBCBCB] flex-row flex justify-between items-center p-5 dark:border-[#303030]">
                 <Link href="/" className="dark:text-white text-white text-2xl font-medium">LLama  </Link>
 
                 {side ?
@@ -209,7 +210,7 @@ export default function Chat() {
                             <input id="my-drawer-1" type="checkbox" className="drawer-toggle" />
                             <div className="drawer-content ">
                                 {/* Page content here */}
-                                <label htmlFor="my-drawer-1" className=" drawer-button"><i class="fa-solid fa-bars text-2xl cursor-pointer hover:text-gray-500 transition-all active:text-gray-500 active:dark:text-gray-500"></i></label>
+                                <label htmlFor="my-drawer-1" className=" drawer-button"><i class="fa-solid fa-bars text-2xl cursor-pointer hover:text-gray-500 text-white transition-all active:text-gray-500 active:dark:text-gray-500"></i></label>
                             </div>
                             <div className="drawer-side ">
                                 <label htmlFor="my-drawer-1" aria-label="close sidebar" className="drawer-overlay bg-white/30 dark:bg-black/30 transition-all backdrop-blur-sm"></label>
@@ -280,9 +281,9 @@ export default function Chat() {
 
                 {/* chat area */}
 
-                <div className=" px-1 lg:px-5 xl:px-7 w-full h-full flex flex-col items-center justify-center">
+                <div className=" px-1  lg:px-5 xl:px-7 w-full h-full flex flex-col items-center justify-center">
 
-                    <div className="   w-full h-screen mb-10 lg:mb-1 overflow-y-scroll ">
+                    <div className="   w-full h-screen mb-15  overflow-y-scroll ">
 
                         {activeChatIndex !== null &&
                             chatList[activeChatIndex]?.messages?.map((msg, index) => (
@@ -316,7 +317,7 @@ export default function Chat() {
                         <div ref={chatRef} />
                     </div>
 
-                    <div className=" fixed xl:static mb-2 md:mb-1 gap-2  bottom-0  w-full flex items-center justify-center">
+                    <div className=" fixed   md:mb-1 gap-2  bottom-5  w-full flex items-center justify-center">
                         <PlaceholdersAndVanishInput
                             placeholders={placeholders}
                             onChange={handleChange}
@@ -325,6 +326,7 @@ export default function Chat() {
                     </div>
                 </div>
 
+            </section>
             </section>
         </>
     );
