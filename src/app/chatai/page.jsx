@@ -155,7 +155,7 @@ export default function Chat() {
             const fullText = resp.data.message;
             let i = 0;
             const interval = setInterval(() => {
-                const speed = 5;
+                const speed = 4;
 
                 updatedChatList[chatIndex].messages[
                     updatedChatList[chatIndex].messages.length - 1
@@ -169,7 +169,7 @@ export default function Chat() {
                     clearInterval(interval);  //Stop this loop
                     setLoading(false);
                 }
-            }, 15); // speed (lower = faster)
+            }, 10); // speed (lower = faster)
 
 
         } catch (error) {
