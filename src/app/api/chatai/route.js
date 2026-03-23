@@ -63,7 +63,7 @@ export async function POST(req) {
 
     // Stream the response to get reasoning tokens in usage
     const stream = await openrouter.chat.send({
-      model: "openai/gpt-4o-mini",
+      model: "arcee-ai/trinity-mini:free",
       messages: [
 
         {
@@ -112,8 +112,9 @@ EXAMPLE OF AN ENHANCED RESPONSE:
 <p>Would you like to see a code example of <strong>useState</strong>, or should we move on to how <strong>useEffect</strong> works?</p>
 `
         },
-        ...chats
+        ...chats.slice(-6) //reducing history to save tokens
       ],
+      max_tokens: 800,
       stream: true
     });
 

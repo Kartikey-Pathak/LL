@@ -34,7 +34,7 @@ export default function Chat() {
     //for Auto Scroll
     useEffect(() => {
         if (chatRef.current) {
-            chatRef.current.scrollIntoView({ behavior: "smooth" });
+            chatRef.current.scrollIntoView({ behavior: "auto" });
         }
     }, [chatList, activeChatIndex]);
 
@@ -155,7 +155,7 @@ export default function Chat() {
             const fullText = resp.data.message;
             let i = 0;
             const interval = setInterval(() => {
-                const speed = 4;
+                const speed = 1;
 
                 updatedChatList[chatIndex].messages[
                     updatedChatList[chatIndex].messages.length - 1
@@ -169,7 +169,7 @@ export default function Chat() {
                     clearInterval(interval);  //Stop this loop
                     setLoading(false);
                 }
-            }, 10); // speed (lower = faster)
+            }, 1); // speed (lower = faster)
 
 
         } catch (error) {
@@ -301,9 +301,9 @@ export default function Chat() {
 
                     {/* chat area */}
 
-                    <div className=" px-1  lg:px-5 xl:px-7 w-full h-full flex flex-col items-center justify-center">
+                    <div className=" px-1 border-2  lg:px-5 xl:px-7 w-full h-full flex flex-col items-center justify-center">
 
-                        <div className="   w-full h-screen mb-15  overflow-y-scroll ">
+                        <div className="   w-full h-screen mb-15 pb-20  overflow-y-scroll ">
 
                             {activeChatIndex !== null &&
                                 chatList[activeChatIndex]?.messages?.map((msg, index) => (
@@ -337,7 +337,7 @@ export default function Chat() {
                             <div ref={chatRef} />
                         </div>
 
-                        <div className=" fixed   md:mb-1 gap-2  bottom-5  w-full flex items-center justify-center">
+                        <div className=" fixed   md:mb-1 gap-2  bottom-1  w-full flex items-center justify-center">
                             <PlaceholdersAndVanishInput
                                 placeholders={placeholders}
                                 onChange={handleChange}
