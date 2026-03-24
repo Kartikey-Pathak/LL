@@ -114,7 +114,7 @@ export default function Home() {
           <h1 className=" mt-10 dark:text-white text-black text-4xl md:text-6xl font-semibold">Introducing LLama</h1>
           <Link href="/chatai" className=" mt-10 bg-black dark:bg-white h-12 cursor-pointer hover:opacity-70 transition-all active:opacity-70 w-40 flex items-center justify-center rounded-4xl text-white dark:text-black gap-3">Get Started <i className=" dark:text-black text-white rotate-50 font-semibold fa-solid fa-arrow-up"></i></Link>
 
-          <h3 className=" mt-10 font-semibold text-black dark:text-[#929292]">Note :- This Ai Model Is Trained Till Oct 2023.</h3>
+          <h3 className=" mt-10 font-semibold text-black dark:text-[#929292]">Note :- This Ai Model Is DeepSeek-R1 Trained Till JUL 2024.</h3>
 
 
           <div className=" mt-20 border-2 border-[#1F1F1F] w-[90%]  md:w-[50%]"></div>
