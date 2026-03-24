@@ -301,7 +301,7 @@ export default function Chat() {
 
                     {/* chat area */}
 
-                    <div className=" px-1 border-2  lg:px-5 xl:px-7 w-full h-full flex flex-col items-center justify-center">
+                    <div className=" px-1   lg:px-5 xl:px-7 w-full h-full flex flex-col items-center justify-center">
 
                         <div className="   w-full h-screen mb-15 pb-20  overflow-y-scroll ">
 
