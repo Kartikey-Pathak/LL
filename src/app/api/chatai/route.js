@@ -112,7 +112,7 @@ EXAMPLE OF AN ENHANCED RESPONSE:
 <p>Would you like to see a code example of <strong>useState</strong>, or should we move on to how <strong>useEffect</strong> works?</p>
 `
         },
-        ...chats.slice(-6) //reducing history to save tokens
+        ...chats.slice(-10) //reducing history to save tokens
       ],
       max_tokens: 800,
       stream: true

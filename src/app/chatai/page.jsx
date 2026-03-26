@@ -221,7 +221,7 @@ export default function Chat() {
     return (
         <>
             <section className=" min-h-screen relative h-full pt-12 overflow-hidden w-full flex items-center ">
-                <nav className=" h-12 bg-black w-screen  fixed top-0 z-50 border-b-2 border-[#CBCBCB] flex-row flex justify-between items-center p-5 dark:border-[#303030]">
+                <nav className=" h-12 bg-black w-screen  fixed top-0 z-50  border-[#CBCBCB] flex-row flex justify-between items-center p-5 dark:border-[#303030]">
                     <Link href="/" className="dark:text-white text-white text-2xl font-medium">LLama  </Link>
 
                     {side ?
@@ -235,7 +235,7 @@ export default function Chat() {
                                 <div className="drawer-side ">
                                     <label htmlFor="my-drawer-1" aria-label="close sidebar" className="drawer-overlay bg-white/30 dark:bg-black/30 transition-all backdrop-blur-sm"></label>
 
-                                    <div className=" h-full w-80 bg-gray-200 dark:bg-[#181818] overflow-hidden">
+                                    <div className=" h-full pb-32 w-80 bg-gray-200 dark:bg-[#181818] overflow-y-scroll overscroll-x-none">
                                         <div className="  h-12 mt-20 justify-between px-15 flex items-center flex-row gap-5">
                                             <h2 className=" m-1 font-semibold text-black dark:text-[#AFAFAF] ">Your Chats</h2>
                                             <button
@@ -249,7 +249,7 @@ export default function Chat() {
                                                 <i className=" text-white text-sm font-semibold fa-solid fa-plus"></i>
                                             </button>
                                         </div>
-                                        <div className="  mt-10 w-full h-full flex-col ml-5  gap-3 flex justify-start items-start overflow-y-scroll">
+                                        <div className="  mt-5 w-full h-fit flex-col ml-5  gap-3 flex justify-start items-start">
 
                                             {chatList.map((chat, index) => (
                                                 <div onClick={() => setActiveChatIndex(index)} key={index} className={` bg-[#242424] ${activeChatIndex === index ? "dark:bg-[#242424] bg-[#242424]/50 " : "bg-[#242424]/20"} justify-between flex-row h-10 w-56 flex items-center px-6 rounded-4xl`}>
@@ -274,7 +274,7 @@ export default function Chat() {
                     }
                     {/* side Area */}
                     {!side ?
-                        <div className=" h-full w-80 bg-[#F9FAFB] dark:bg-[#181818] overflow-hidden">
+                        <div className=" h-full w-80 bg-[#F9FAFB] dark:bg-[#181818] overflow-y-scroll">
                             <div className="  h-12 mt-20 justify-between px-5 flex items-center flex-row gap-5">
                                 <h2 className=" m-1 font-semibold text-[#AFAFAF] ">Your Chats</h2>
                                 <button
@@ -287,7 +287,7 @@ export default function Chat() {
                                     <i className=" text-white text-sm font-semibold fa-solid fa-plus"></i>
                                 </button>
                             </div>
-                            <div className="  mt-10 w-full h-full flex-col  gap-3 flex justify-start items-center overflow-y-scroll">
+                            <div className="  w-full h-fit mt-5 pt-5 pb-5 flex-col  gap-10 flex justify-start items-center">
 
                                 {chatList.map((chat, index) => (
                                     <div onClick={() => setActiveChatIndex(index)} key={index} className={` bg-[#242424] ${activeChatIndex === index ? "bg-[#242424]" : "bg-[#242424]/20"} justify-between flex-row h-10 w-56 flex items-center px-6 rounded-4xl`}>
