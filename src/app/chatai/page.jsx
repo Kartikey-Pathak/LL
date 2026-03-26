@@ -249,7 +249,7 @@ export default function Chat() {
                                                 <i className=" text-white text-sm font-semibold fa-solid fa-plus"></i>
                                             </button>
                                         </div>
-                                        <div className="  mt-5 w-full h-fit flex-col ml-5  gap-3 flex justify-start items-start">
+                                        <div className="  mt-5 w-fit h-fit flex-col ml-10  overflow-hidden   gap-3 flex justify-start items-start">
 
                                             {chatList.map((chat, index) => (
                                                 <div onClick={() => setActiveChatIndex(index)} key={index} className={` bg-[#242424] ${activeChatIndex === index ? "dark:bg-[#242424] bg-[#242424]/50 " : "bg-[#242424]/20"} justify-between flex-row h-10 w-56 flex items-center px-6 rounded-4xl`}>
