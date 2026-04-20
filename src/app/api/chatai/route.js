@@ -63,7 +63,7 @@ export async function POST(req) {
 
     // Stream the response to get reasoning tokens in usage
     const stream = await openrouter.chat.send({
-      model: "arcee-ai/trinity-mini:free",
+      model: "meta-llama/llama-3-8b-instruct",
       messages: [
 
         {
