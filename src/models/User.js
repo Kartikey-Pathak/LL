@@ -77,7 +77,26 @@ const UserSchema = new Schema({
   Messages: [MessageSchema]
 
 
-}, { timestamps: true })
+}, { timestamps: true });
+
+
+const PdfChunkSchema = new mongoose.Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+
+  pdfTitle: String,
+
+  chunkIndex: Number,
+
+  content: String,
+
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  }
+});
 
 // TTL index to auto-delete after 10 minutes
 UserSchema.index({ VerifyCodeExpiry: 1 }, { expireAfterSeconds: 0 });

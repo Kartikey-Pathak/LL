@@ -22,6 +22,8 @@ export default function Chat() {
     ];
     const [side, setside] = useState();
     const [input, setinput] = useState("");
+    // for pdf
+    const [selectedPdf, setSelectedPdf] = useState(null);
 
 
     const [chatList, setChatList] = useState([]);
@@ -287,10 +289,10 @@ export default function Chat() {
                                     <i className=" text-white text-sm font-semibold fa-solid fa-plus"></i>
                                 </button>
                             </div>
-                            <div className="  w-full h-fit mt-5 pt-5 pb-5 flex-col  gap-10 flex justify-start items-center">
+                            <div className="  w-full h-fit mt-5 pt-5 pb-5 flex-col  gap-5 flex justify-start items-center">
 
                                 {chatList.map((chat, index) => (
-                                    <div onClick={() => setActiveChatIndex(index)} key={index} className={` bg-[#242424] ${activeChatIndex === index ? "bg-[#242424]" : "bg-[#242424]/20"} justify-between flex-row h-10 w-56 flex items-center px-6 rounded-4xl`}>
+                                    <div onClick={() => setActiveChatIndex(index)} key={index} className={` bg-[#242424] hover:bg-[#242424]/20 cursor-pointer transition-all ${activeChatIndex === index ? "bg-[#242424]" : "bg-transparent"} justify-between flex-row h-10 w-56 flex items-center px-6 rounded-4xl`}>
                                         <h2 className=" dark:text-white text-white">{chat.title}</h2>
                                         <i onClick={() => { deletechat(index) }} className=" text-[#4A4A4A] font-semibold cursor-pointer hover:dark:text-red-300 hover:text-red-300 transition-all active:text-red-300 active:dark:text-red-300 fa-solid fa-trash-can"></i>
                                     </div>
@@ -337,11 +339,34 @@ export default function Chat() {
                             <div ref={chatRef} />
                         </div>
 
-                        <div className=" fixed   md:mb-1 gap-2  bottom-1  w-full flex items-center justify-center">
+                        <div className=" fixed   md:mb-1  flex-col  bottom-1  w-full flex items-center justify-center">
+                          
+                                {selectedPdf ? (
+                                      <div className=" h-12 w-[60%] md:w-[30%] bg-[#212121]/30 flex flex-row gap-1 items-center justify-start rounded-t-4xl backdrop-blur-sm">
+                                    <div className="flex m-4 items-center gap-2">
+                                        <span className=" text-sm text-gray-500">Selected PDF : </span>
+                                        <h1 className="text-gray-300 text-sm truncate">
+                                            {selectedPdf}
+                                        </h1>
+
+                                        <button
+                                            onClick={() => setSelectedPdf(null)}
+                                            className="text-gray-500 cursor-pointer active:text-red-400 hover:text-red-400 transition-all"
+                                        >
+                                            <i className=" text-xl md:text-sm  fa-solid fa-xmark"></i>
+                                        </button>
+                                    </div></div>
+                                ) : (
+                                  <></>
+                                )}
+
+                            
+
                             <PlaceholdersAndVanishInput
                                 placeholders={placeholders}
                                 onChange={handleChange}
                                 onSubmit={handleSubmit}
+                                setSelectedPdf={setSelectedPdf}
                             />
                         </div>
                     </div>

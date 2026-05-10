@@ -7,9 +7,44 @@ import { cn } from "@/lib/utils";
 export function PlaceholdersAndVanishInput({
   placeholders,
   onChange,
-  onSubmit
+  onSubmit,
+   selectedPdf,
+  setSelectedPdf
 }) {
   const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
+  const [uploadingPdf, setUploadingPdf] = useState(false);
+
+  const fileInputRef = useRef(null);
+
+
+  const handlePdfUpload = async (e) => {
+    try {
+      const file = e.target.files[0];
+
+      if (!file) return;
+      setUploadingPdf(true);
+
+      const formData = new FormData();
+      formData.append("pdf", file);
+
+      const res = await fetch("/api/upload-pdf", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      console.log(data);
+      setSelectedPdf(data.title);
+
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setUploadingPdf(false);
+    }
+  };
+
+
 
   const intervalRef = useRef(null);
   const startAnimation = () => {
@@ -164,22 +199,52 @@ export function PlaceholdersAndVanishInput({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+      navigator.vibrate?.(20);
     vanishAndSubmit();
     onSubmit && onSubmit(e);
   };
   return (
     <form
       className={cn(
-        "w-full relative max-w-xl mx-auto bg-white dark:bg-[#303030] h-13 md:h-14 rounded-full overflow-hidden shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),_0px_1px_0px_0px_rgba(25,28,33,0.02),_0px_0px_0px_1px_rgba(25,28,33,0.08)] transition duration-200",
+        "w-full relative max-w-xl mx-auto bg-white dark:bg-[#212121] h-13 md:h-14 rounded-full overflow-hidden shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),_0px_1px_0px_0px_rgba(25,28,33,0.02),_0px_0px_0px_1px_rgba(25,28,33,0.08)] transition duration-200",
         value && "bg-gray-50"
       )}
       onSubmit={handleSubmit}>
+
+        
       <canvas
         className={cn(
           "absolute pointer-events-none  text-base transform scale-50 top-[20%] left-2 sm:left-8 origin-top-left filter invert dark:invert-0 pr-20",
           !animating ? "opacity-0" : "opacity-100"
         )}
         ref={canvasRef} />
+
+      <div className=" w-10 absolute z-50 border-2 border-green-300 flex items-center justify-start h-full">
+        <i onClick={() =>{ navigator.vibrate?.(10); !uploadingPdf && fileInputRef.current?.click()}} title="Add PDF" className={`fa-solid  active:text-[gray]  ml-3 cursor-pointer transition-all
+  ${uploadingPdf
+            ? "text-gray-500 cursor-not-allowed"
+            : "hover:text-[gray] text-white"}
+  fa-plus`}></i>
+        <input
+          type="file"
+          accept="application/pdf"
+          ref={fileInputRef}
+          className="hidden"
+          onChange={handlePdfUpload}
+        />
+      </div>
+      {uploadingPdf && (
+        <div className="absolute inset-0 z-[100] rounded-full bg-black/10 backdrop-blur-[1px] flex items-center justify-center">
+          <span className="loading loading-spinner loading-md text-white"></span>
+          <p className="ml-2 text-sm text-white">
+            Reading PDF...
+          </p>
+        </div>
+      )}
+       
+
+    
+
       <input
         onChange={(e) => {
           if (!animating) {
@@ -192,7 +257,7 @@ export function PlaceholdersAndVanishInput({
         value={value}
         type="text"
         className={cn(
-          "w-full relative text-sm sm:text-base z-50 border-none dark:text-white bg-transparent text-black h-full rounded-full focus:outline-none focus:ring-0 pl-4 sm:pl-10 pr-20",
+          "w-full relative text-sm sm:text-base z-40 border-none dark:text-white bg-transparent text-black h-full rounded-full focus:outline-none focus:ring-0 pl-10 pr-20",
           animating && "text-transparent dark:text-transparent"
         )} />
       <button
@@ -228,8 +293,9 @@ export function PlaceholdersAndVanishInput({
           <path d="M13 6l6 6" />
         </motion.svg>
       </button>
+      {/* placeholder */}
       <div
-        className="absolute inset-0 flex items-center rounded-full pointer-events-none">
+        className="absolute pl-5 z-0 md:pl-0 inset-0 flex items-center pointer-events-none rounded-full ">
         <AnimatePresence mode="wait">
           {!value && (
             <motion.p
