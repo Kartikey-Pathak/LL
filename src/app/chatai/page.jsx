@@ -342,8 +342,8 @@ export default function Chat() {
                         <div className=" fixed   md:mb-1  flex-col  bottom-1  w-full flex items-center justify-center">
                           
                                 {selectedPdf ? (
-                                      <div className=" h-12 w-[60%] md:w-[30%] bg-[#212121]/30 flex flex-row gap-1 items-center justify-start rounded-t-4xl backdrop-blur-sm">
-                                    <div className="flex m-4 items-center gap-2">
+                                      <div className=" h-12 w-[60%] md:w-[30%]  bg-[#212121]/30 flex flex-row gap-1 items-center justify-start rounded-t-4xl backdrop-blur-sm">
+                                    <div className="flex m-4 items-center gap-2 overflow-hidden">
                                         <span className=" text-sm text-gray-500">Selected PDF : </span>
                                         <h1 className="text-gray-300 text-sm truncate">
                                             {selectedPdf}

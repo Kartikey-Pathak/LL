@@ -1,10 +1,26 @@
+import { chunkText } from "@/helpers/ChunkText";
 import { NextResponse } from "next/server";
-import pdf from "pdf-parse-new";
+import { PdfReader } from "pdfreader";
+
+function parsePdf(buffer) {
+  return new Promise((resolve, reject) => {
+    let text = "";
+
+    new PdfReader().parseBuffer(buffer, (err, item) => {
+      if (err) return reject(err);
+
+      if (!item) {
+        resolve(text);
+      } else if (item.text) {
+        text += item.text + " ";
+      }
+    });
+  });
+}
 
 export async function POST(req) {
   try {
     const formData = await req.formData();
-
     const file = formData.get("pdf");
 
     if (!file) {
@@ -14,32 +30,27 @@ export async function POST(req) {
       );
     }
 
-    // Convert uploaded file to buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Parse PDF
-    const parsedPdf = await pdf(buffer);
+    // 👉 extract text
+    const text = await parsePdf(buffer);
 
-    // Console log extracted text
-    console.log(parsedPdf.text);
-    const text = parsedPdf.text;
-    console.log(parsedPdf.info.Title,"@@@@@@@");
-
-    // Requesting My pdf data into chunks from helper method
-    const chunk=chunkText(text);
+    // 👉 chunk it
+    const chunks = chunkText(text); 
 
     return NextResponse.json({
       success: true,
-      text: parsedPdf.text,
-      title:parsedPdf.info.Title
+      title: file.name.replace(".pdf", ""),
+      text,
+      chunks
     });
 
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
 
     return NextResponse.json(
-      { error: "Failed to parse PDF" },
+      { error: "PDF parsing failed" },
       { status: 500 }
     );
   }
