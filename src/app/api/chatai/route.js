@@ -14,7 +14,8 @@ connect();
 export async function POST(req) {
   try {
     let body = await req.json();
-    let { chats, chatId, title } = body;
+    let { chats, chatId, title, selectedPdf } = body;
+    let pdfContext = ""; //for pdf stuff....
     // console.log(chats);
 
     //check for oauth first..
@@ -38,8 +39,31 @@ export async function POST(req) {
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+    //Got The User
 
+    //the last msg of the user
     const lastUserMsg = chats[chats.length - 1];
+
+    //now if user want to ask with pdf data
+
+    if (selectedPdf) {
+      const pdfData = user.pdfs?.find(
+        p => p.title.toLowerCase().trim() ===
+          selectedPdf.toLowerCase().trim()
+      );
+
+      if (pdfData) {
+        pdfContext = pdfData.text;
+        console.log("PDF FOUND");
+        console.log(pdfContext.slice(0, 500));
+      } else {
+        console.log("PDF NOT FOUND");
+      }
+    }
+
+
+
+
 
     //If title already exists, reuse it
     const existingTitles = new Set(user.Messages.map(m => m.title));
@@ -68,7 +92,19 @@ export async function POST(req) {
 
         {
           role: "system",
-          content: `
+          content: selectedPdf ? `
+You are an AI assistant that answers ONLY using the provided PDF context.
+
+RULES:
+- Use ONLY the PDF content below.
+- If answer is not in PDF, say "I couldn't find this in the document".
+- Be precise and cite understanding from context.
+
+PDF CONTENT:
+${pdfContext}
+`
+            :
+            `
 You are a highly intelligent, empathetic, and proactive AI assistant. Your goal is to provide expert-level clarity while maintaining a friendly, modern vibe.
 
 CORE PERSONALITY:

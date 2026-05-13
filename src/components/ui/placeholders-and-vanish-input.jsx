@@ -3,12 +3,13 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import toast, { Toaster } from "react-hot-toast";
 
 export function PlaceholdersAndVanishInput({
   placeholders,
   onChange,
   onSubmit,
-   selectedPdf,
+  selectedPdf,
   setSelectedPdf
 }) {
   const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
@@ -32,10 +33,23 @@ export function PlaceholdersAndVanishInput({
         body: formData,
       });
 
+
       const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.error);
+        return;
+      }
+
 
       console.log(data);
       setSelectedPdf(data.title);
+
+      if (data.alreadyExists) {
+        toast.success("PDF already uploaded. Selected existing PDF ✅");
+      } else {
+        toast.success("PDF uploaded successfully !");
+      }
 
     } catch (error) {
       console.log(error);
@@ -199,7 +213,7 @@ export function PlaceholdersAndVanishInput({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-      navigator.vibrate?.(20);
+    navigator.vibrate?.(20);
     vanishAndSubmit();
     onSubmit && onSubmit(e);
   };
@@ -211,7 +225,7 @@ export function PlaceholdersAndVanishInput({
       )}
       onSubmit={handleSubmit}>
 
-        
+
       <canvas
         className={cn(
           "absolute pointer-events-none  text-base transform scale-50 top-[20%] left-2 sm:left-8 origin-top-left filter invert dark:invert-0 pr-20",
@@ -219,8 +233,8 @@ export function PlaceholdersAndVanishInput({
         )}
         ref={canvasRef} />
 
-      <div className=" w-10 absolute z-50 border-2 border-green-300 flex items-center justify-start h-full">
-        <i onClick={() =>{ navigator.vibrate?.(10); !uploadingPdf && fileInputRef.current?.click()}} title="Add PDF" className={`fa-solid  active:text-[gray]  ml-3 cursor-pointer transition-all
+      <div className=" w-10 absolute z-50  flex items-center justify-start h-full">
+        <i onClick={() => { navigator.vibrate?.(10); !uploadingPdf && fileInputRef.current?.click() }} title="Add PDF" className={`fa-solid  active:text-[gray]  ml-3 cursor-pointer transition-all
   ${uploadingPdf
             ? "text-gray-500 cursor-not-allowed"
             : "hover:text-[gray] text-white"}
@@ -241,9 +255,9 @@ export function PlaceholdersAndVanishInput({
           </p>
         </div>
       )}
-       
 
-    
+
+
 
       <input
         onChange={(e) => {

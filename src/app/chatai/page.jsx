@@ -141,7 +141,7 @@ export default function Chat() {
             const title = updatedChatList[chatIndex].title;
             const chatId = updatedChatList[chatIndex].id;
 
-            let resp = await axios.post("/api/chatai", { chats: llmChats, chatId: chatId, title: title }, { withCredentials: true });
+            let resp = await axios.post("/api/chatai", { chats: llmChats, chatId: chatId, title: title,selectedPdf:selectedPdf }, { withCredentials: true });
 
             //sync title from backend
             updatedChatList[chatIndex].title = resp.data.title;
