@@ -55,6 +55,11 @@ export function PlaceholdersAndVanishInput({
       console.log(error);
     } finally {
       setUploadingPdf(false);
+      
+      // reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     }
   };
 

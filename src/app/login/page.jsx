@@ -75,7 +75,7 @@ export default function LoginFormDemo() {
             <Input
               id="email"
               type="email"
-              placeholder="projectmayhem@fc.com"
+              placeholder="test@gmail.com"
               value={user.email}
               onChange={(e) => setUser({ ...user, email: e.target.value })}
             />
@@ -86,7 +86,7 @@ export default function LoginFormDemo() {
             <Input
               id="password"
               type="password"
-              placeholder="••••••••"
+              placeholder="test1234"
               value={user.password}
               onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
