@@ -23,6 +23,13 @@ export function PlaceholdersAndVanishInput({
       const file = e.target.files[0];
 
       if (!file) return;
+      
+      // 5MB limit
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error("PDF must be under 5MB");
+        return;
+      }
+
       setUploadingPdf(true);
 
       const formData = new FormData();
@@ -34,7 +41,23 @@ export function PlaceholdersAndVanishInput({
       });
 
 
-      const data = await res.json();
+      let data;
+
+      //for error handling
+
+      try {
+        data = await res.json();
+      } catch {
+        const errorText = await res.text();
+
+        if (res.status === 413) {
+          toast.error("PDF too large. Max size exceeded.");
+          return;
+        }
+
+        toast.error(errorText || "Upload failed");
+        return;
+      }
 
       if (!res.ok) {
         toast.error(data.error);
@@ -55,7 +78,7 @@ export function PlaceholdersAndVanishInput({
       console.log(error);
     } finally {
       setUploadingPdf(false);
-      
+
       // reset file input for bug fix
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
