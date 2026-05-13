@@ -32,6 +32,24 @@ const MessageSchema = new Schema(
   { timestamps: true }
 );
 
+const PdfSchema = new Schema({
+  pdfId: {
+    type: String,
+    required: true,
+  },
+  title: String,
+
+  text: {
+    type: String,
+    default: "",
+  },
+
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  }
+});
+
 const UserSchema = new Schema({
   username: {
     type: String,
@@ -74,29 +92,31 @@ const UserSchema = new Schema({
   VerifyTokenExpiry: {
     type: Date,
   },
-  Messages: [MessageSchema]
+
+  Messages: [MessageSchema],
+
+  pdfs: {
+    type: [PdfSchema],
+    default: []
+  },
+
+  //used for rate limiting...
+
+  pdfUploadCount: {
+    type: Number,
+    default: 0
+  },
+
+  pdfUploadDate: {
+    type: Date,
+    default: null
+  },
 
 
 }, { timestamps: true });
 
 
-const PdfChunkSchema = new mongoose.Schema({
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
 
-  pdfTitle: String,
-
-  chunkIndex: Number,
-
-  content: String,
-
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  }
-});
 
 // TTL index to auto-delete after 10 minutes
 UserSchema.index({ VerifyCodeExpiry: 1 }, { expireAfterSeconds: 0 });
