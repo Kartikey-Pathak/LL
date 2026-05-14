@@ -116,7 +116,7 @@ export async function POST(req) {
     }
 
     // limit check
-    if (user.email!=="kartikeypathakx@gmail.com"&&user.pdfUploadCount >= 2) {
+    if (user.email !== "kartikeypathakx@gmail.com" && user.pdfUploadCount >= 2) {
       return NextResponse.json(
         {
           error: "Daily PDF limit reached. Tokens are expensive 😅 Try again tomorrow."

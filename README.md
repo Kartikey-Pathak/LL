@@ -1,150 +1,196 @@
-# 🚀 LLaMA -- Full-Stack AI Chat Application
+# 🚀 LLaMA — Full-Stack AI Chat Application
 
-A production-grade **AI chat application** built with **Next.js**,
-**MongoDB**, and **OpenRouter LLMs**, focusing on **authentication,
-secure data modeling, chat persistence, scalability, and clean
-architecture**.
+A production-grade **AI-powered chat application** built using **Next.js, MongoDB, OpenRouter LLMs, and secure authentication**, featuring **persistent chat history, PDF-based AI conversations, context-aware responses, and scalable architecture**.
 
-🔗 **Live Demo:** https://llama-theta.vercel.app/\
+🔗 **Live Demo:** https://llama-theta.vercel.app/  
 💻 **GitHub:** https://github.com/Kartikey-Pathak/LL
 
-------------------------------------------------------------------------
+---
 
-## 📌 Overview
+# 📌 Overview
 
-LLaMA is a full-stack AI chat platform where users can securely
-authenticate, create multiple chat sessions, and interact with an AI
-model that responds **based on previous chat context**.
+LLaMA is a full-stack AI chat platform where users can:
 
-The project was built to understand: - Real-world authentication flows -
-Schema design for chat applications - Frontend state management for
-dynamic chat UIs - Production-style folder structure - AI integration
-with cost & latency control
+- Securely authenticate
+- Create and manage multiple chat sessions
+- Chat with an AI model using conversation history
+- Upload PDFs and ask questions from documents
+- Persist chat history across sessions
 
-------------------------------------------------------------------------
+The project was built to gain hands-on experience with:
 
-## 🛠️ Tech Stack
+- Real-world authentication systems
+- AI integration in production apps
+- Database schema design
+- Stateful chat architectures
+- Cost-aware LLM usage
+- Deployment & serverless limitations
 
-### Frontend
+---
 
--   Next.js (App Router)
--   React
--   Tailwind CSS + DaisyUI
--   Axios
--   React Hot Toast
+# ✨ Features
 
-### Backend
+## 💬 AI Chat System
 
--   Next.js API Routes
--   MongoDB + Mongoose
--   JWT Authentication
--   bcrypt (password hashing)
+- Context-aware AI responses
+- Previous messages used as conversation memory
+- Multiple chat sessions
+- Automatic title handling
+- Persistent chat history
+- Chat deletion support
 
-### AI
+## 📄 PDF Chat (Document Q&A)
 
--   OpenRouter API
--   Context-aware LLM responses
--   Model knowledge cutoff: **October 2023**
+Users can upload PDFs and ask questions directly from them.
 
-------------------------------------------------------------------------
+### Current Workflow
 
-## 🔐 Authentication & Security
+- Upload PDF
+- Extract text from document
+- Store parsed PDF content in MongoDB
+- AI answers questions using uploaded document context
 
--   Email + Password authentication
--   OTP-based email verification before account activation
--   Password hashing using bcrypt
--   JWT-based authentication
--   Secure HTTP-only cookies
--   Protected routes using token verification
+### Safeguards
 
-------------------------------------------------------------------------
+- Daily PDF upload limit
+- Duplicate PDF detection
+- File size restrictions
+- User-specific document storage
 
-## 💬 Chat System (Core Feature)
+⚠️ **Note:** Since the app currently uses a **free LLM model**, responses based on PDFs may occasionally be inaccurate or hallucinated.
 
--   Chats grouped by title
--   Automatic chat creation if title doesn't exist
--   Message appending for existing chats
--   User-specific chat history stored in MongoDB
--   Chat deletion with frontend & backend sync
--   Chat continuity across sessions
+---
 
-------------------------------------------------------------------------
+# 🔐 Authentication & Security
 
-## 🧠 AI Integration
+Supports **two authentication systems**:
 
--   Integrated LLM via OpenRouter
--   Uses previous messages as context
--   Controlled message history to manage cost & latency
--   Model knowledge cutoff: **October 2023**
+### Email + Password Auth
 
-------------------------------------------------------------------------
+- Signup/Login
+- OTP email verification
+- Password hashing using bcrypt
 
-## ⚛️ Frontend & UX
+### OAuth Authentication
 
--   Light / Dark mode
--   Clean chat UI
--   Auto-scroll to latest message
--   Efficient frontend state management
--   Toast notifications
--   Responsive layout
+- Google Sign-In support via NextAuth
 
-------------------------------------------------------------------------
+### Security Features
 
-## 🗂️ Backend & Architecture
+- JWT authentication
+- HTTP-only cookies
+- Protected API routes
+- User-specific data isolation
+- Authentication middleware
 
--   Modular API routes (auth, verify, chat, AI)
--   Clean schema design
--   Production-style folder structure
--   Proper error handling & status codes
+---
 
-------------------------------------------------------------------------
+# 🧠 AI Integration
 
-## 📁 Folder Structure
+Powered by **OpenRouter API** with:
 
-    /app
-     ├─ api
-     │   ├─ auth
-     │   ├─ verify
-     │   └─ chatai
-     ├─ chat
-     └─ layout.js
+- Context-aware responses
+- Controlled message history for lower token cost
+- Cost optimization using limited context window
+- Streaming response support
 
-    /models
-     ├─ User.js
-     └─ Message.js
+### Current Model
 
-    /helpers
-     ├─ gettokeninfo.js
-     ├─ Sendotpemail.js
-     └─ generateUniqueTitle.js
+- `meta-llama/llama-3-8b-instruct`
+- Knowledge cutoff depends on selected model
 
-    /dbconfig
-     └─ dbconfig.js
+---
 
-------------------------------------------------------------------------
+# ⚛️ Frontend & UX
 
-## 📚 Learning & Resources
+- Modern responsive UI
+- Light/Dark mode
+- Smooth chat experience
+- Animated input system
+- Toast notifications
+- Auto-scroll to latest message
+- Loading states & upload feedback
 
-Next.js documentation, Stack Overflow, and ChatGPT were used for: -
-Debugging - Framework clarification - Architecture understanding -
-Frontend state management
+---
 
-Core logic, schema design, authentication flow, and application
-structure were fully implemented and understood during development.
+# 🛠️ Tech Stack
 
-------------------------------------------------------------------------
+## Frontend
 
-## 🚧 Future Improvements
+- Next.js (App Router)
+- React
+- Tailwind CSS
+- DaisyUI
+- Framer Motion / Motion
+- React Hot Toast
 
--   Streaming AI responses
--   Chat search
--   Message regeneration
--   Rate limiting
--   Improved mobile UX
+## Backend
 
-------------------------------------------------------------------------
+- Next.js API Routes
+- MongoDB
+- Mongoose
+- JWT Authentication
+- NextAuth
+- bcrypt
 
-## 🧑‍💻 Author
+## AI & Document Processing
 
-**Kartikey Pathak**\
-B.Tech CSE | Full-Stack Developer
+- OpenRouter API
+- LLaMA Models
+- PDFReader for PDF parsing
+
+---
+
+# 🗂️ Backend Architecture
+
+Structured with modular architecture for scalability.
+
+## API Routes
+
+```txt
+/app
+ ├── api
+ │   ├── auth
+ │   ├── verify
+ │   ├── chatai
+ │   ├── upload-pdf
+ │   └── auth/[...nextauth]
+```
+
+## Challenges Solved During Development
+
+Some real-world engineering problems solved while building:
+
+- AI context handling
+- Persistent chat memory
+- Duplicate chat title handling
+- PDF parsing & storage
+- Authentication with JWT + OAuth
+- Serverless deployment issues on Vercel
+- File upload limits (413 Payload Too Large)
+- Error-safe API response parsing
+- Token cost optimization
+
+## Learning & Development
+
+- This project was built as a deep learning experience in:
+
+- Full-stack development
+- Authentication systems
+- AI integration
+- Backend architecture
+- Database modeling
+- Production debugging
+
+- Resources used:
+
+- Next.js Documentation
+- MongoDB Documentation
+- Stack Overflow
+- ChatGPT (for debugging, explanations, and learning concepts)
+
+- The core implementation, debugging, architectural decisions, and understanding were done during the development process.
+
+## Author
+## Kartikey Pathak
+## B.Tech CSE | Full-Stack Developer | Coding Enthusiast
