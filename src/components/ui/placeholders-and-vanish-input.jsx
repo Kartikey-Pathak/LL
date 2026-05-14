@@ -23,10 +23,10 @@ export function PlaceholdersAndVanishInput({
       const file = e.target.files[0];
 
       if (!file) return;
-      
-      // 5MB limit
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error("PDF must be under 5MB");
+
+      // 2MB limit
+      if (file.size > 2 * 1024 * 1024) {
+        toast.error("PDF must be under 2MB");
         return;
       }
 
@@ -41,21 +41,22 @@ export function PlaceholdersAndVanishInput({
       });
 
 
+      const responseText = await res.text();
       let data;
 
       //for error handling
 
       try {
-        data = await res.json();
+        //converts a JSON string to JavaScript object.
+        data = JSON.parse(responseText);
       } catch {
-        const errorText = await res.text();
 
         if (res.status === 413) {
           toast.error("PDF too large. Max size exceeded.");
           return;
         }
 
-        toast.error(errorText || "Upload failed");
+        toast.error(responseText || "Upload failed");
         return;
       }
 
