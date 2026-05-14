@@ -39,16 +39,20 @@ export function PlaceholdersAndVanishInput({
         method: "POST",
         body: formData,
       });
+      // console.log(res, "res!!!!!!!!!!!!!!!");
 
 
       const responseText = await res.text();
+      // console.log(responseText, "respneext#############");
       let data;
+
 
       //for error handling
 
       try {
         //converts a JSON string to JavaScript object.
         data = JSON.parse(responseText);
+        // console.log(data, "data object%%%%%%%%");
       } catch {
 
         if (res.status === 413) {
