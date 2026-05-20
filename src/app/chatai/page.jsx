@@ -293,7 +293,7 @@ export default function Chat() {
 
                                 {chatList.map((chat, index) => (
                                     <div onClick={() => setActiveChatIndex(index)} key={index} className={` bg-[#242424] hover:bg-[#242424]/20 cursor-pointer transition-all ${activeChatIndex === index ? "bg-[#242424]" : "bg-transparent"} justify-between flex-row h-10 w-56 flex items-center px-6 rounded-4xl`}>
-                                        <h2 className=" dark:text-white text-white">{chat.title}</h2>
+                                        <h2 className={` dark:text-white ${activeChatIndex === index ? "text-white" : "text-black"}`}>{chat.title}</h2>
                                         <i onClick={() => { deletechat(index) }} className=" text-[#4A4A4A] font-semibold cursor-pointer hover:dark:text-red-300 hover:text-red-300 transition-all active:text-red-300 active:dark:text-red-300 fa-solid fa-trash-can"></i>
                                     </div>
                                 ))}

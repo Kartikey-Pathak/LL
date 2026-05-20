@@ -93,7 +93,7 @@ export default function Home() {
           <button onClick={Logout} className=" text-white bg-[#1F1F1F] w-24 h-12 p-3 text-sm font-semibold mt-5 border-2 border-gray-950 cursor-pointer mr-5 hover:bg-[#1F1F1F]/80 transition-all active:opacity-85 rounded-4xl">LogOut</button>
         </div>
 
-        <Link href="/chatai" className=" fixed bottom-10 flex-row flex hover:scale-105 transition-all active:scale-105  items-center justify-between right-0 left-0 mx-auto font-medium backdrop-blur-xl text-[#929292] mt-10 bg-[#3A3A3A] p-4 rounded-4xl w-64 h-14">
+        <Link href="/chatai" className=" fixed bottom-10 flex-row flex hover:scale-105 transition-all active:scale-105  items-center justify-between right-0 left-0 mx-auto font-medium backdrop-blur-3xl text-[#929292] mt-10 bg-[#3A3A3A]/20 p-4 rounded-4xl w-64 h-14">
           Ask LLama
           <div className=" size-9 rounded-full flex items-center justify-center text-center bg-[#929292]">
             <i className="fa-solid fa-arrow-up font-bold text-[1.1rem] text-[#3A3A3A]"></i>
@@ -102,13 +102,13 @@ export default function Home() {
         <div className=" w-full flex items-center  flex-col justify-center mt-5">
           <p className="text-[#929292]">{formattedDate}</p>
           {<h1 className=" dark:text-white text-black text-xl flex flex-row gap-2 items-center justify-center md:text-2xl mt-1 font-semibold">Welcome,
-            {name?
-            <span className=" text-[#929292]">{name}</span>
-            :
-            <div className="flex gap-2">
-              <div className="skeleton h-10 w-40 bg-[#929292] rounded-4xl"></div>
-            </div>
-}
+            {name ?
+              <span className=" text-[#929292]">{name}</span>
+              :
+              <div className="flex gap-2">
+                <div className="skeleton h-10 w-40 bg-[#929292] rounded-4xl"></div>
+              </div>
+            }
           </h1>
           }
           <h1 className=" mt-10 dark:text-white text-black text-4xl md:text-6xl font-semibold">Introducing LLama</h1>
@@ -244,24 +244,15 @@ export default function Home() {
                 <div className="flex gap-10">
                   <div className="flex flex-col gap-2">
                     <span className="font-medium text-black dark:text-white">Product</span>
-                    <span className="hover:underline cursor-pointer">Chat</span>
-                    <span className="hover:underline cursor-pointer">Models</span>
-                    <span className="hover:underline cursor-pointer">API</span>
+                    <Link href={"/chatai"}><span className="hover:underline cursor-pointer">Chat</span></Link>
+                    <a href={"https://openrouter.ai/"}><span className="hover:underline cursor-pointer">API</span></a>
                   </div>
 
                   <div className="flex flex-col gap-2">
                     <span className="font-medium text-black dark:text-white">Resources</span>
-                    <span className="hover:underline cursor-pointer">Documentation</span>
-                    <span className="hover:underline cursor-pointer">Safety</span>
-                    <span className="hover:underline cursor-pointer">Status</span>
+                    <a href={"https://github.com/Kartikey-Pathak/LL/blob/main/README.md"}><span className="hover:underline cursor-pointer">Documentation</span></a>
                   </div>
 
-                  <div className="flex flex-col gap-2">
-                    <span className="font-medium text-black dark:text-white">Company</span>
-                    <span className="hover:underline cursor-pointer">About</span>
-                    <span className="hover:underline cursor-pointer">Privacy</span>
-                    <span className="hover:underline cursor-pointer">Terms</span>
-                  </div>
 
                 </div>
                 <div className="flex flex-col gap-3 w-fit items-start">
@@ -278,7 +269,7 @@ export default function Home() {
               <div className="w-[90%] md:w-[70%] mx-auto mt-10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
                 <span>© {new Date().getFullYear()} LLama. All rights reserved.</span>
                 <span className="opacity-70">
-                  Built with OpenRouter • LLaMA Model
+                  Built with OpenRouter • Kartikey Pathak
                 </span>
               </div>
             </footer>
