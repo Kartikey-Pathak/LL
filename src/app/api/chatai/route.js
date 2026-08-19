@@ -169,6 +169,8 @@ EXAMPLE OF AN ENHANCED RESPONSE:
       stream: true
     });
 
+    //131,000 tokens can be handled
+
 
     let response = "";
     for await (const chunk of stream) {
